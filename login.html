@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- <script src="http://code.jquery.com/jquery-git2.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+<style>
+    .invalid {
+        color: red;
+    }
+    .valid{
+        color: green;
+    }
+</style>
+<body>
+    <div class="container">
+        <p><h2>Sign in</h2></p>
+        <p>Stay updated on your professional world</p>
+    <form method="post" id="form" >
+        <input type="text" name="email" id="email" class="email" onchange="validateEmail()" placeholder="Email or Phone"> <br>
+        <input type="password" name="Newpassword" id="Newpassword"class="Newpassword" onchange="ValidatePassword()" placeholder="Password" > <br>
+        <input type="name" name="name" id="name" class="name" onchange="validateName()" placeholder="Name"> <br>
+        <input type="text" name="contact" id="contact" class="contact" onchange="validateNumber()" placeholder="Contact No."><br>
+        <p id="noError" class="invalid">Only digit[0-9]</p> 
+       <!-- <span id="nameError">Only alphabat and space</span> -->
+       <p id="nameError" class="invalid">Only Alphabet n space</p>
+        <div id="newpassword">
+            <h4>Password must meet the following requirements:</h4>
+            <ul>
+                <li id="LowerCase" class="invalid">At least <strong>one letter</strong></li>
+                <li id="UpperCase" class="invalid">At least <strong>one capital letter</strong></li>
+                <li id="Numbers" class="invalid">At least <strong>one number</strong></li>
+                <li id="Length" class="invalid">Be at least <strong>8 characters</strong></li>
+                <li id="Symbols" class="invalid">At least<strong>one special character</strong></li>
+            </ul>
+        </div>
+        <p><a href=" ">Forgot Password?</a></p>
+        <button class="btn" onclick="login()">Login</button>
+    </form>
+</div>
+    
+</body>
+<script>
+  function validateNumber()
+  {
+    var num = $("#contact").val();
+    if(num.match(/^\d*(?:\.\d{1,2})?$/))
+    {
+        $("#noError").removeClass("invalid");
+        // $("#nameError").hide();
+        $("#noError").addClass("valid");
+        //  alert(num);
+        return true;
+    } else {
+        // $("#nameError").show();
+        // alert('Wrong');
+        return false;
+    }
+       
+  
+  }
+  $(document).ready(function() {
+      $("#contact").on('keyup', validateNumber)
+    });
+  // $(document).ready(function(){
+  //       $("#name").click(function(){
+  //         if(name.value.match((/^[a-zA-Z]+(\s{1}[a-zA-Z]+)*$/)))
+  //         {
+  //         $("#nameError").removeClass();
+  //           $("#nameError").addClass("valid");
+  //         }
+  //       });
+   function validateName() {
+    var val = $("#name").val();
+    //  $("#nameError").removeClass(/^[a-zA-Z]+(\s{1}[a-zA-Z]+)*$/).test(val) ? "invalid" : "valid";
+    //  $("#nameError").addClass(/^[a-zA-Z]+(\s{1}[a-zA-Z]+)*$/).test(val) ? "invalid" : "valid";
+    if(val.match(/^[a-zA-Z]+(\s{1}[a-zA-Z]+)*$/)) 
+    {
+        $("#nameError").removeClass();
+        // $("#nameError").hide();
+        $("#nameError").addClass("valid");
+        // alert(val);
+        return true;
+    } else {
+        $("#nameError").addClass("invalid");
+        $("#nameError").removeClass("valid");
+        // $("#nameError").hide();
+        // alert(val);
+        return false;
+    }
+       
+
+    }
+    $(document).ready(function() {
+      $("#name").on('keyup', validateName)
+    });
+     function validateEmail($email) {
+
+        var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+        return emailReg.test( $email );
+        alert(plz);
+            }
+        function ValidatePassword() {
+  /*Array of rules and the information target*/
+  var rules = [{
+      Pattern: "[A-Z]",
+      Target: "UpperCase"
+    },
+    {
+      Pattern: "[a-z]",
+      Target: "LowerCase"
+    },
+    {
+      Pattern: "[0-9]",
+      Target: "Numbers"
+    },
+    {
+      Pattern: "[!@@#$%^&*]",
+      Target: "Symbols"
+    }
+  ];
+
+  //Just grab the password once
+  var password = $(this).val();
+
+  /*Length Check, add and remove class could be chained*/
+  /*I've left them seperate here so you can see what is going on */
+  /*Note the Ternary operators ? : to select the classes*/
+  $("#Length").removeClass(password.length > 8 ? "invalid" : "valid");
+  $("#Length").addClass(password.length > 8 ? "valid" : "invalid");
+ 
+  
+  /*Iterate our remaining rules. The logic is the same as for Length*/
+  for (var i = 0; i < rules.length; i++) {
+    // alert(rules[i].Target);
+    $("#" + rules[i].Target).removeClass(new RegExp(rules[i].Pattern).test(password) ? "invalid" : "valid"); 
+    $("#" + rules[i].Target).addClass(new RegExp(rules[i].Pattern).test(password) ? "valid" : "invalid");
+      }
+      return i.test($password);
+      
+    }
+
+    /*Bind our event to key up for the field. It doesn't matter if it's delete or not*/
+    $(document).ready(function() {
+      $("#Newpassword").on('keyup', ValidatePassword)
+    });
+    function login()
+    {
+      
+      var email=$("#email").val();
+      alert(email);
+      var password=$("#Newpassword").val();
+      alert(password);
+      var name=$("#name").val();
+      alert(name);
+      var ph=$("#contact").val();
+      alert(ph);
+
+    }
+
+</script>
+</html>

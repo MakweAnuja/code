@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array-js</title>
+</head>
+<script src=
+"https://code.jquery.com/jquery-3.5.1.js">
+    </script>
+<body>
+    <div class="col-lg-6">
+        <table id="tabledata">
+      </table>
+</div>
+</body>
+<script>
+    $(document).ready(function() {
+            $.ajax({
+            url: "url_call.php",
+            // 'Access-Control-Allow-Origin': '*',
+            type: "POSt",
+            cache: true,
+            success: function(response)
+            {
+                // console.log(response);
+                var json=JSON.parse(response);
+                var newTr = "<tr><th>ID</th><th>Name</th><th>Image</th></tr>" 
+                for (i=0;i<json.length;i++)
+                {
+                    // console.log(json);
+                       // I delete the value to avoid double tr declaration
+                    newTr += '<tr>';
+                    newTr += "<td>" + json[i].id + "</td>";
+                    newTr += "<td>" + json[i].service_name + "</td>";
+                    newTr += "<td><img width=50px src=" + json[i].image +"></td>";
+                    newTr+="<td><a href="+"> Edit</a></td>"
+                    newTr+="<td><a href="+"> Delete</a></td>"
+                    newTr += "</tr>";
+                }
+
+                 $('#tabledata tr.messages').remove();        // remove the existing one
+                $('#tabledata').append(newTr);
+                
+            }
+            
+        })
+    });
+</script>
+</html>

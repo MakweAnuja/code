@@ -1,0 +1,49 @@
+<html>
+    <style>
+        input
+        {
+            padding: 10px;
+            
+        }
+        
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <body>
+    <input id="name" placeholder="Enter Name"/><br><br>
+    <input id="address"placeholder="Enter Address"/><br><br>
+    <input id="postalcode"placeholder="Enter postlCode"/><br><br>
+    <input id="phone"placeholder="Enter Phone"/><br><br>
+    <input id="email" placeholder="Enter Email"/><br><br>
+    <button id="clickMe">click me</button>
+  </body>  
+  <script>
+    var objectarray = [];
+    var button = document.getElementById("clickMe");
+
+    function addToArray() {
+    //   var customerobject = {};
+    //   customerobject.name = document.getElementById("name").value;
+    //   customerobject.address = document.getElementById("address").value;
+    //   customerobject.postalcode = document.getElementById("postalcode").value;
+    //   customerobject.phone = document.getElementById("phone").value;
+    //   customerobject.email = document.getElementById("email").value;
+    //   objectarray.push(customerobject);
+    //   console.log(objectarray);
+      $.ajax({  
+        type: 'POST',  
+        url: 'object.php', 
+        data:  {
+            name : document.getElementById("name").value,
+            address : document.getElementById("address").value,
+            postalcode : document.getElementById("postalcode").value,
+            phone : document.getElementById("phone").value,
+            email : document.getElementById("email").value
+        },
+        success: function(response) {
+            console.log(response);
+        }
+        });
+    }
+    button.addEventListener("click", addToArray);
+  </script>
+</html>
