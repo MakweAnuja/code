@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,6 +80,44 @@ body {
             </div>
             <span id="output"></span>
         </div>
+   <br><br>
+    <div>
+    <form method="post" class="form-login">
+		<div class="form-group">
+			<input type="text" class="form-control"
+				name="otp" id="OTP"
+				aria-describedby="emailHelp"
+				placeholder="Enter OTP" required>
+		</div>
+        <br><br>
+		<button type="button"
+			class="btn btn-primary btn-lg"
+			id="verify-otp">
+			verify otp
+		</button>
+	</form>
+    </div>
+
+	<script>
+		// $("#resend-otp").click(function () {
+		// 	window.location.replace("resend-otp.php");
+		// });
+		$("#verify-otp").click(function () {
+
+			var otp1 = document.getElementById("OTP").value;
+
+			// alert(otp1);
+			var otp2 = ("<?php echo($otp)?>");
+			
+			// alert(otp2);
+			if (otp1 == otp2) {
+				window.location.replace(".php");
+			}
+			else {
+				alert("otp not matches")
+			}
+		});
+	</script>
     </div>
     <script>
         // document.querySelector() is used to select an element from the document using its ID

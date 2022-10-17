@@ -4,32 +4,47 @@ if (isset($_POST['login'])&& !empty($_POST['login']))
 {
 $email=$_POST['email'];
 $pattern = "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^";  
-if (!preg_match ($pattern, $email) ){  
+if (!preg_match ($pattern, $email) )
+{  
     $ErrMsg = "Enter Vaild Email!";  
     echo "<script type ='text/JavaScript'>
     alert('Email is not valid');
     </script>"; 
 } 
-else
-{
-    echo $email;
-}
+
 $sql=mysqli_query($con,"SELECT * FROM `info_tab` WHERE email='$email'");
-$sqli=mysqli_fetch_assoc($sql);
-$count=mysqli_num_rows($sql);
-if ($count==1)
+$sqli=mysqli_fetch_array($sql);
+if($sqli)
 {
-  header("location: verifyman.html");
-}
+// $count=mysqli_num_rows($sql);
+    header("location: verifyman.php");
+                    $from ="bhoopendrachaurasiya.ciss@gmail.com
+                    ";
+					$to=$_POST['$email'];
+					$subject="verify-account-otp";
+					// Generating otp with php rand variable
+					$otp=rand(100000,999999);
+					$message=strval($otp);
+					$headers="From:" .$from;
+					if(mail($to,$subject,$message,$headers)){
+                        $username="username";
+                        $otp="otp";
+                        $email="email";
+						header("Location:home.html");
+					}
+					else
+                    {
+						echo("mail send faild");
+                    }
 
+}
 else
 {
-  echo "<script type ='text/JavaScript'>
-  alert('Enter vaild email !');
-  </script>";
+    echo "<script type ='text/JavaScript'>
+    alert('Not found!');
+    </script>"; 
 }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +65,7 @@ else
 </head>
 <body>
     <div class="container">
-    <form>
+    <form method="post">
         <h1>Forgot Password ?</h1>
     <input type="text" id="email" name="email" placeholder="Enter Email"><br><br>
     <!-- <input type="submit" class="verify"><a href="verifyman.html">Submit</a></button> -->
