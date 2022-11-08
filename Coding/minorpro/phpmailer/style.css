@@ -1,0 +1,81 @@
+
+h3
+{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+
+form
+{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.container
+{
+    margin: auto;
+    width:100%;
+    border:2px solid rgba(238, 234, 234, 0.781);
+    border-radius:5px;
+    box-shadow:3px ;
+    padding: 50px;
+}
+#email, #password
+{
+    width: 100%;
+    padding: 20px;
+    border-radius: 4px;
+    background-color:white;
+    border: 1px solid black;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size:large;
+}
+
+#login
+{
+    width: 100%;
+    padding: 15px;
+    border-radius: 25px;
+    margin-top: 10px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size:large;
+    border: none;
+    color: aliceblue;
+    background-color: rgb(75, 75, 238);
+    cursor:pointer;
+}
+.forget
+{
+    position: relative;
+    left: -8px;
+    margin-top: 8px;
+    cursor:pointer;
+    display: inline-block;
+    font-family: inherit;
+    
+
+}
+button.verify a {
+    width: 10%;
+    padding: 15px 20px;
+    border-radius: 25px;
+    margin-top: 10px;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border: none;
+    background-color: rgb(75, 75, 238);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+input.verify {
+    background: transparent;
+    border: none;
+    margin-bottom: 35px;
+}
+/* .con
+{
+    background-color:rgb(58, 180, 140) ;
+} */
