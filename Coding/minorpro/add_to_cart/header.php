@@ -13,7 +13,6 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.24/sweetalert2.all.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">  
     </head>
@@ -22,12 +21,14 @@
                     color: red;  
                     margin-left: 5px;  
                 }
-                  
+                 
+                
         </style>
     <body>
         <nav class="navbar navbar-expand-lg bg-primary">
             <div class="container-fluid">
             <a class="navbar-brand" href="iindex.php">Home</a>
+          
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -38,7 +39,8 @@
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success bg-light  " type="submit">Search</button>
                 </li>
-                </ul>
+                  </ul>
+                  
                 <?php
                 if (isset($_SESSION['id']))
                 {?>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('object.php');
+include('config.php');
 
 
 ?>
@@ -38,21 +38,21 @@ include('object.php');
         <th>Total</th>
      </tr>
      <?php
-    if ($_GET['productId']!='')
+    if($_GET['id']!='')
     {
     // if(isset($_POST['submit']) && !empty($_POST['submit']))
     // {
-      $productId=$_GET['productId'];
-      $sqli=mysqli_query($con,"SELECT * FROM `addproduct` WHERE productId='$productId'");
+      $productId=$_GET['product_Id'];
+      $sqli=mysqli_query($con,"SELECT * FROM `addproduct` WHERE product_Id='$product_Id'");
      while ($sqlij=mysqli_fetch_assoc($sqli))
      {?>
         <tr align="center">
-        <td><?php echo "<img src='images/".$sqlij['image']."'>";?></td>
+        <td><?php echo "<img src='images/".$sqlij['product_image']."'>";?></td>
         <td><span id="price" name="price"><?php echo $sqlij['price_product']?></span></td>
         <td><?php echo $sqlij['name_product']?></td>
         <td><input type="number" value="1" min="1" id="input" onchange="total()" /></td>
         <td><input type="number" name="result" id="result" value="<?php echo $sqlij['price_product']?>" disabled></td>
-        <td><input type="hidden" id="ProId" name="ProId" value="<?php echo $sqlij['productId']?>"></td>
+        <td><input type="hidden" id="ProId" name="ProId" value="<?php echo $sqlij['product_Id']?>"></td>
         <tr>
         <td></td>
         <td></td>

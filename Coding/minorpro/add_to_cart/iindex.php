@@ -2,61 +2,20 @@
 session_start();
 include('config.php');
 $status="";
-if (isset($_POST['id']) && $_POST['id']!="")
+
+if (isset($_POST['product_id']) && $_POST['product_id']!="")
 {
-    $code = $_POST['code'];
-    $id=$_SESSION['id'];
-    $result = mysqli_query($con,"SELECT * FROM `products` WHERE `product_id`='$product_id'");
+    $product_id = $_POST['product_id'];
+    $result = mysqli_query($con,"SELECT * FROM `addproduct` WHERE `product_id`='$product_id'");
     $row = mysqli_fetch_assoc($result);
-    $name = $row['name'];
+    $product_name = $row['product_name'];
     $code = $row['code'];
-    $price = $row['price'];
-    $image = "images/".$row['image'];
-
-    $cartArray = array(
-    $code=>array(
-    'name'=>$name,
-    'code'=>$code,
-    'price'=>$price,
-    'quantity'=>1,
-    'image'=>"images/".$image)
-    );
-
-if(empty($_SESSION["shopping_cart"]))
- {
-    $_SESSION["shopping_cart"] = $cartArray;
-    $status = "<div class='box'>Product is added to your cart!</div>";
- }
-
-else
-  {
-    $array_keys = array_keys($_SESSION["shopping_cart"]);
-    if(in_array($code,$array_keys)) 
-    {
-      $status = "<div class='box' style='color:red;'>
-      Product is already added to your cart!</div>";	
-    }
-    else 
-    {
-      $_SESSION["shopping_cart"] = array_merge($_SESSION["shopping_cart"],$cartArray);
-      $status = "<div class='box'>Product is added to your cart!</div>";
-	  }
-  }
-
+    $product_price = $row['product_price'];
+    $product_image = "images/".$row['product_image'];
+    
 }
 ?>
-<?php
-if(!empty($_SESSION["shopping_cart"]))
-{
-  $cart_count = count(array_keys($_SESSION["shopping_cart"]));
-  ?>
-  <div class="cart_div">
-  <span class="navbar-text"><a class="bi-cart" class="nav-link" href="Caart.php">Cart</a><span>
-  <?php echo $cart_count;?></span></a>
-  </div>
-  <?php
-}
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,7 +32,7 @@ if(!empty($_SESSION["shopping_cart"]))
 "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
     <style>
       .myimage{
-                width: 60%;
+                width: 50%;
                 height: 100%;
               }
               @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap');
@@ -244,20 +203,6 @@ if(!empty($_SESSION["shopping_cart"]))
       </style>
 </head>
 <body>
-<span class="navbar-text">
-       <?php
-        if(!empty($_SESSION["shopping_cart"])) 
-        {
-         $cart_count = count(array_keys($_SESSION["shopping_cart"]));
-         ?> 
-      <span class="navbar-text">
-      <a class="bi-cart" class="nav-link" href="Caart.php">Cart</a>
-        <?php echo $cart_count;?></span></a>
-        </div>
-        <?php
-        }
-        ?>
-      </span>
 <nav class="navbar navbar-expand-lg bg-primary head">
   <div class="container-fluid  text-center">
     <a class="navbar-brand" href="iindex.php">Home</a>
@@ -277,32 +222,40 @@ if(!empty($_SESSION["shopping_cart"]))
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success bg-light" type="submit">Search</button>
         </li>
+        <li>
+          <li>
+                <div class="cart_div">
+                <span class="navbar-text"><a class="bi-cart" class="nav-link"  href="Caart.php">Cart</a>
+                </div>
+                </li>
+      </li>
       </ul>
       <?php
       if (isset($_SESSION['id']))
-      {?>
+      {
+        echo (isset($_SESSION['id']));?>
       <ul>
         <div class="navigation">
     <div class="user-box">
       <div class="image-box">
       <i class="bi bi-people-fill"></i>
       </div>
-      <p class="username">Welcome</p>
+      <p class="username">Welcome <?php echo $_SESSION["name"]?></p>
     </div>
     <div class="menu-toggle"></div>
     <ul class="menu">
       <li><a href="#"><ion-icon name="person-outline"></ion-icon>Profile</a></li>
       <!-- <li><a href="#"><ion-icon name="chatbox-outline"></ion-icon>Messages</a></li>
       <li><a href="#"><ion-icon name="notifications-outline"></ion-icon>Notification</a></li> -->
-      <li><a href="#"><ion-icon name="cog-outline"></ion-icon></ion-icon>Change Password</a></li>
+      <li><a href="changepswd.php"><ion-icon name="cog-outline"></ion-icon></ion-icon>Change Password</a></li>
   <li><a href="logout.php"><ion-icon name="log-out-outline"></ion-icon>Logout</a></li>
   </ul>
       <!-- </ul> -->
       <!-- <ul>
         <button class="btn btn-outline-success bg-light" type="submit" id="logout" name="logout"><a class="nav-link bg-light" href="logout.php">Logout</a></button>
       </ul> -->
-      
       </div>
+      
       <?php
       }
       else
@@ -318,33 +271,35 @@ if(!empty($_SESSION["shopping_cart"]))
   </div>
 </nav>
 <div class="row" >
-    <?php
-         $sqli=mysqli_query($con,"SELECT * FROM `addproduct`");
-        //  print_r(mysqli_fetch_assoc($sqli));
-         while ($row=mysqli_fetch_assoc($sqli))
-         {?>
-         <div class="col-md-3 wrapper">
-            <div class="card text-center myimage" style="width: 20rem;" >
-                <img class="card-img-top img-responsive thumbnail " src='<?="images/".$row['product_image']?>'alt="...">
-                <h5><?=$row['product_price']?></h5>
+<?php
+$result = mysqli_query($con,"SELECT * FROM `addproduct`");
+while($row = mysqli_fetch_assoc($result)){?>
+    <div class="col-md-3 wrapper">
+            <div class="card text-center myimage" style="width:20rem;" >
+    <form method='post' action=''>
+    <!-- <input type='hidden' name='code' value=".$row['code']." /> -->
+    <div class='image'><img class="card-img-top img-responsive thumbnail " src='<?="images/".$row['product_image']?>'alt="..."></div>
+    <h5><?=$row['product_price']?></h5>
                 <h4><?=$row['product_name']?></h4>
-                <a href="Caart.php?id=<?=$row['product_id']?>">Add to Cart</a>
-         </div>
-        </div>
-      <?php } ?>
-      </div>
+                <a href="Caart.php?product_id=<?=$row['product_id']?>">Add to Cart</a>
+    </form>
+</div>
+    </div>
     <?php
-       mysqli_close($con);
-    ?>
-        <div style="clear:both;"></div>
+        }?></div>
+        <?php
+mysqli_close($con);
+?>
 
-        <div class="message_box" style="margin:10px 0px;">
-    <?php echo $status; ?>
-        </div>
+<div style="clear:both;"></div>
 
-
+<div class="message_box" style="margin:10px 0px;">
+<?php echo $status; ?>
+</div>
     </body>
 <script>
+    // alert ($_SESSION["name"]);
+
   let menuToggle = document.querySelector('.menu-toggle');
   let navigation = document.querySelector('.navigation');
 

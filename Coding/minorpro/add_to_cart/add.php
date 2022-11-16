@@ -96,7 +96,7 @@ if(isset($_GET['productId']))
          {?>
             <tr>
             <td><?php echo $sqlij['productId']?></td>
-            <td><?php echo "<img src='images/".$sqlij['image']."'>";?></td>
+            <td><?php echo "<img src='images/".$sqlij['image']."'>"?></td>
             <td><?php echo $sqlij['price_product']?></td>
             <td><?php echo $sqlij['name_product']?></td>
             <td><a href="update.php?productId=<?php echo $sqlij['productId'];?>">Edit</a></td>
