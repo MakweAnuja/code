@@ -26,7 +26,12 @@ if (isset($_POST['product_id']) && $_POST['product_id']!="")
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <link rel="stylesheet" href=
 "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
  
+<script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
     <!-- Bootstrap Font Icon CSS -->
     <link rel="stylesheet" href=
 "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
@@ -184,7 +189,7 @@ if (isset($_POST['product_id']) && $_POST['product_id']!="")
 }
 
 .navigation.active {
-  width: 300px;
+    width: 300px;
     height: 350px;
     transition: width 0.5s, height 0.5s;
     transition-delay: 0s, 0.75s;
@@ -219,13 +224,13 @@ if (isset($_POST['product_id']) && $_POST['product_id']!="")
         </li> -->
         <li>
         <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success bg-light" type="submit">Search</button>
+        <input class="form-control me-2 w-150" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success bg-light w-50 " type="submit">Search</button>
         </li>
         <li>
           <li>
                 <div class="cart_div">
-                <span class="navbar-text"><a class="bi-cart" class="nav-link"  href="Caart.php">Cart</a>
+                <span class="navbar-text"><a class="bi-cart" class="nav-link" href="Caart.php">Cart(0)</a>
                 </div>
                 </li>
       </li>
@@ -273,7 +278,10 @@ if (isset($_POST['product_id']) && $_POST['product_id']!="")
 <div class="row" >
 <?php
 $result = mysqli_query($con,"SELECT * FROM `addproduct`");
-while($row = mysqli_fetch_assoc($result)){?>
+while($row = mysqli_fetch_assoc($result)){
+  // $_SESSION["product_id"] = $row["product_id"];
+  // print_r($_SESSION);
+  ?>
     <div class="col-md-3 wrapper">
             <div class="card text-center myimage" style="width:20rem;" >
     <form method='post' action=''>
@@ -281,6 +289,9 @@ while($row = mysqli_fetch_assoc($result)){?>
     <div class='image'><img class="card-img-top img-responsive thumbnail " src='<?="images/".$row['product_image']?>'alt="..."></div>
     <h5><?=$row['product_price']?></h5>
                 <h4><?=$row['product_name']?></h4>
+                <!-- <button type="submit" class= "btn btn-outline-success bg-primary text-dark"> Add to cart</button>
+                <input type="hidden" name="item_name" value="alex">
+                <input type="hidden" name="price" value="1582"> -->
                 <a href="Caart.php?product_id=<?=$row['product_id']?>">Add to Cart</a>
     </form>
 </div>
@@ -305,6 +316,10 @@ mysqli_close($con);
 
 menuToggle.onclick = function() {
   navigation.classList.toggle('active');
+
+  $(document).ready(function () {
+    $('#table_id').DataTable();
+} );
 }
   </script>
     

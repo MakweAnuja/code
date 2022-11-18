@@ -63,37 +63,52 @@ $status="";
 <td>UNIT PRICE</td>
 <td>ITEMS TOTAL</td>
 </tr>	
-<!-- <?php
-if (isset($_GET['product_id']) && $_GET['product_id']!="")
+ 
+<form method='post' action=''>
+<?php
+    $_SESSION['product_id']=$_GET['product_id'];
+    print_r($_SESSION['product_id']);
+if (isset($_SESSION['product_id']) && $_SESSION['product_id']!="")
 {
-// print_r($_POST);
+// print_r($_SESSION['product_id']);
+// print_r($_GET);
+    print_r($_SESSION);
     $total_quantity = 1;
     $total_price = 0;
-    $product_id = $_GET['product_id'];
-    $result = mysqli_query($con,"SELECT * FROM `addproduct` WHERE `product_id`='".$_GET['product_id']."'");
-    $row = mysqli_fetch_assoc($result);
-    $_SESSION['row']=$row;
-    print_r($_SESSION['row']);
-// foreach ($_SESSION["shopping_cart"] as $product)
-// {
-?> -->
-<form method='post' action=''>
+    // $product_id = $_GET['product_id'];
+    $result = mysqli_query($con,"SELECT * FROM `addproduct` WHERE `product_id`='".$_SESSION['product_id']."'");
+
+    // die;  
+    // $row = mysqli_fetch_assoc($result);
+    // $_SESSION['product_image']=$row['product_image'];
+    // $_SESSION['product_name']=$row['product_name'];
+    // $_SESSION['product_price']=$row['product_price'];
+    // print_r($_SESSION);
+    // die;
+    while($row = mysqli_fetch_assoc($result)){ 
+      $_SESSION['product_image']=$row['product_image'];
+      $_SESSION['product_name']=$row['product_name'];
+      $_SESSION['product_price']=$row['product_price'];
+    // die;
+
+  // $product_price = $item["quantity"]*$item["product_price"];
+  ?> 
 <tr>
 <td>
-<img class="card-img-top img-responsive thumbnail " src='<?="images/".$row['product_image']?>' width="10" height="60" />
+<img class="card-img-top img-responsive thumbnail " src='<?="images/".$_SESSION["product_image"]?>' width="10" height="60" />
 </td>
-<td><?php echo $row["product_name"];?></td>
+<td><?php echo $_SESSION['product_name'];?></td>
 <td><input type="number" id="input" name="input" value="1" min="1" onchange="total()"/></td>
-<td><span id="price" name="price"><?php echo $row["product_price"];?></span></td>
-<td><input type="number" name="result" id="result" value="<?php echo $row['product_price']?>" disabled/></td>
+<td><span id="price" name="price"><?php echo $_SESSION['product_price'];?></span></td>
+<td><input type="number" name="result" id="result" value="<?php echo $_SESSION['product_price']?>"disabled/></td>
 <!-- <input type='hidden' name='action' value="remove"/> -->
-<!-- <button type='submit' class='remove'>Remove Item</button> -->
+<button type='submit' class='remove'>Remove Item</button>
 </tr>
 <tr>
 <td colspan="5" align="right">
-Total Amount <input type="number" name="result1" id="result1" value="<?php echo $row['product_price'];}?>"disabled />
+Total Amount <input type="number" name="result1" id="result1" value="<?php echo $_SESSION['product_price'];}}?>"disabled></td>
 <!-- <strong>TOTAL: <?php echo "₹ ".$total_price; ?></strong> -->
-</td>
+<!-- </td> -->
 </tr>
 </tbody>
 </table>	
